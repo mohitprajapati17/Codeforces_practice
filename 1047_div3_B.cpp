@@ -13,12 +13,14 @@ ll MOD =1e9+7;
  
 
 void solve() {
-   int k,n;
-   cin>>k>>n;
-   while(k--){
-    n=n*2;
+   int n;
+   cin>>n;
+   vector<int> arr(n);
+   for(int i=0;i<n;i++) cin>>arr[i];
+   for(auto & it: arr){
+    cout<<abs(n-it+1)<<" ";
    }
-   cout<<n<<endl;
+   cout<<endl;
 }
 
 int main(){
