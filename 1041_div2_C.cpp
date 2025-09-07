@@ -1,55 +1,36 @@
-#include <iostream>
-#include <map>
-#include <algorithm>
-#include <vector>
-#include <set>
-#include <math.h>
+#include <bits/stdc++.h>
 using namespace std;
-#define ll long long
-ll MOD =1e9+7;
 
-#define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+const int MXN = 2e5+5;
 
- 
+int n, k, a[MXN];
 
-void solve() {
-   int n,k;
-   cin>>n>>k;
-   vector<pair<int,int> > arr(n);
-   for(int  i=0;i<n;i++){
-        int x,y;
-        cin>>x>>y;
-        arr[i]=make_pair(x,y);
-   }
-   sort(arr.begin(),arr.end());
-   vector<pair<int,int> > ans;
-   for(int i=1;i<n;i++){
-        vector<int> four(4);
-        four[0]=arr[i-1].first;
-        four[1]=arr[i-1].second;
-        four[2]=arr[i].first;
-        four[3]=arr[i].first;
-        int first=abs(four[0]-four[1])+abs(four[2]-four[3]);
-        sort(four.begin(),four.end());
-        int second=abs(four[0]-four[1])+abs(four[2]-four[3]);
-        ans.push_back(make_pair(second-first,first));
-
-   }
-   sort(ans.begin(),ans.end());
-   int a=0;
-    for(int i=0;i<ans.size();i++){
-        if(i==0) a+=ans[i].first+ans[i].second;
-        else a+=ans[i].second;
+void Main() {
+    cin >> n >> k;
+    for(int i=1; i<=n; i++) cin >> a[i];
+    vector<pair<int, int>> vec;
+    long long ans = 0;
+    for(int i=1, b; i<=n; i++) {
+        cin >> b;
+        if(b<a[i]) swap(b, a[i]);
+        ans += b-a[i];
+        vec.push_back({a[i], b});
     }
-
-    cout<<a<<endl;
-
-
+    sort(vec.begin(), vec.end());
+    for(int i=1; i<n; i++)
+        if(vec[i].first<=vec[i-1].second) {
+            cout << ans << '\n';
+            return;
+        }
+    int mn = 2e9;
+    for(int i=1; i<n; i++)
+        mn = min(mn, vec[i].first - vec[i-1].second);
+    cout << ans + 2*mn << '\n';
 }
 
-int main(){
-    int t=1;
-    cin>>t;
-    while(t--) solve();
-    return 0;
+int32_t main() {
+    cin.tie(0); cout.tie(0); ios_base::sync_with_stdio(0);
+    int tc;
+    cin >> tc;
+    while(tc--) Main();
 }
