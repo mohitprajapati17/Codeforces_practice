@@ -15,26 +15,55 @@ ll MOD =1e9+7;
 void solve() {
    ll n;
    cin>>n;
-   vector<ll> odd;
-   ll sum_even=0;
-   while(n--){
-    ll x;
-    cin>>x;
-    if(x&1){
-        odd.push_back(x);
-    }
-    else sum_even+=x;
+   vector<int> arr(n);
+   set<int> st;
+   for(int i=0;i<n;i++){
+    cin>>arr[i];
+    if(arr[i]!=0) st.insert(arr[i]);
+    
    }
-   sort(odd.rbegin(),odd.rend());
-   if(odd.size()==0) {
+   vector<int> a;
+   for(int i=1;i<=n;i++){
+    if(st.find(i)!=st.end()){
+
+    }
+    else{
+        a.push_back(i);
+    }
+   }
+   sort(a.rbegin(),a.rend());
+   int i=0;
+   for(auto &  it: arr){
+    if(it==0){
+        it=a[i];
+        i++;
+    }
+   }
+   int cnt=0;
+   int l=-1;
+   int r=-1;
+   for(int i=0;i<n;i++){
+    if(arr[i]!=i+1){
+        l=i;
+        break;
+    }
+   }
+
+   for(int i=n-1;i>=0;i--){
+    if(arr[i]!=i+1){
+        r=i;
+        break;
+    }
+   }
+   if(l==-1&&r==-1) {
     cout<<0<<endl;
     return;
    }
-   ll ans=sum_even+odd[0];
-   for(ll i=1;i<(odd.size()+1)/2;i++){
-    ans+=odd[i];
-   }
-   cout<<ans<<endl;
+   cout<<r-l+1<<endl;
+
+
+
+  
 
 
 
